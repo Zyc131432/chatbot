@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  fitness_chatbot:
+    build: .
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - FIREBASE_KEY_PATH=/app/chatbot_db.json
+      - GPT_TOKEN=${GPT_TOKEN}
+      - BASIC_URL=${BASIC_URL}
+      - MODEL_NAME=${MODEL_NAME}
+      - API_VERSION=${API_VERSION}
+    ports:
+      - "8000:8000"  # 根据你的应用需要暴露的端口
+    volumes:
+      - /Users/ci1/Desktop/chatbot_db.json:/app/chatbot_db.json
