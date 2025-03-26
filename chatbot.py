@@ -2,6 +2,7 @@ from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import (Updater, CommandHandler, MessageHandler,Filters, CallbackContext, ContextTypes)
 import configparser
 import os
+from dotenv import load_dotenv
 import logging
 from ChatGPT import HKBU_ChatGPT
 import requests
@@ -10,12 +11,19 @@ from firebase_admin import credentials, firestore
 
 def main():
     # Load your token and create an Updater for your Bot
+    load_dotenv(dotenv_path='fitness_chatbot.env')
+    telegram_token = os.getenv("TELEGRAM_TOKEN")
+    firebase_key_path = os.getenv("FIREBASE_KEY_PATH")
+
+
+    # 使用令牌和路径执行操作
+
     config = configparser.ConfigParser()
     config.read('config.ini')
-    updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
+    updater = Updater(token=telegram_token, use_context=True)
     dispatcher = updater.dispatcher
 
-    cred = credentials.Certificate(config['firebase']['key_path'])
+    cred = credentials.Certificate(firebase_key_path)
     firebase_admin.initialize_app(cred)
     global db
     db = firestore.client()  # 获取 Firestore 客户端
