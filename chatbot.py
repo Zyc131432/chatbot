@@ -15,7 +15,7 @@ def main():
     updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
     dispatcher = updater.dispatcher
 
-    cred = credentials.Certificate('/Users/ci1/Desktop/chatbot_db.json')
+    cred = credentials.Certificate(config['firebase']['key_path'])
     firebase_admin.initialize_app(cred)
     global db
     db = firestore.client()  # 获取 Firestore 客户端
