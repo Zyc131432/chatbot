@@ -11,6 +11,6 @@ services:
       - MODEL_NAME=https://genai.hkbu.edu.hk/general/rest
       - API_VERSION=2024-05-01-preview
     ports:
-      - "8000:8000"  # 根据你的应用需要暴露的端口
+      - "8000:8000"
     volumes:
       - /Users/ci1/Desktop/chatbot_db.json:/app/chatbot_db.json
