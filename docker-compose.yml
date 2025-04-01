@@ -1,16 +1,9 @@
 version: '3.8'
 
 services:
-  fitness_chatbot:
-    build: .
+  chatbot:
+    image: fitness-chatbot:latest
     environment:
-      - TELEGRAM_TOKEN=7793006122:AAECFlqL0V6qglZwScdDLtdLwNrr9cpywbc
-      - FIREBASE_KEY_PATH=/app/chatbot_db.json
-      - GPT_TOKEN=76223b66-fd36-490e-8589-b1dc71da871e
-      - BASIC_URL=gpt-4-o
-      - MODEL_NAME=https://genai.hkbu.edu.hk/general/rest
-      - API_VERSION=2024-05-01-preview
-    ports:
-      - "8000:8000"
-    volumes:
-      - /Users/ci1/Desktop/chatbot_db.json:/app/chatbot_db.json
+      - .env
+
+

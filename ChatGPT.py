@@ -1,24 +1,28 @@
-import configparser
+import os
 import requests
+from dotenv import load_dotenv
 
 class HKBU_ChatGPT():
-    def __init__(self,config_='./config.ini'):
-      if type(config_) == str:
-            self.config = configparser.ConfigParser()
-            self.config.read(config_)
-      elif type(config_) == configparser.ConfigParser:
-            self.config = config_
+    def __init__(self):
+        load_dotenv()
 
+        self.basic_url = os.getenv('CHATGPT_BASIC_URL')
+        self.model_name = os.getenv('CHATGPT_MODEL_NAME')
+        self.api_version = os.getenv('CHATGPT_API_VERSION')
+        self.access_token = os.getenv('CHATGPT_ACCESS_TOKEN')
 
     def submit(self,message):
         conversation = [{"role": "user", "content": message}]
 
-        url = (self.config['CHATGPT']['BASICURL']) + "/deployments/" + \
-              (self.config['CHATGPT']['MODELNAME']) + "/chat/completions/?api-version=" +\
-              (self.config['CHATGPT']['APIVERSION'])
+        url = f"{self.basic_url}/deployments/{self.model_name}/chat/completions/?api-version={self.api_version}"
+        #url = (self.config['CHATGPT']['BASICURL']) + "/deployments/" + \
+        #      (self.config['CHATGPT']['MODELNAME']) + "/chat/completions/?api-version=" +\
+        #      (self.config['CHATGPT']['APIVERSION'])
 
-        headers = { 'Content-Type': 'application/json',
-        'api-key': (self.config['CHATGPT']['ACCESS_TOKEN']) }
+        headers = {
+            'Content-Type': 'application/json',
+            'api-key': self.access_token
+        }
 
         payload = {'messages': conversation}
         response = requests.post(url, json=payload, headers=headers)
