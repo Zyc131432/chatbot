@@ -1,13 +1,10 @@
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
-from telegram.ext import (Updater, CommandHandler, MessageHandler,Filters, CallbackContext, ContextTypes)
-import configparser
+from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, CallbackContext)
 import os
 from dotenv import load_dotenv
 import logging
 from ChatGPT import HKBU_ChatGPT
-import requests
 import firebase_admin
-import json
 from firebase_admin import credentials, firestore
 
 def main():
@@ -15,10 +12,8 @@ def main():
     telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
     firebase_key_path = os.getenv("FIREBASE_KEY_PATH")
 
-
     updater = Updater(token=telegram_token, use_context=True)
     dispatcher = updater.dispatcher
-
 
     cred = credentials.Certificate(firebase_key_path)
     firebase_admin.initialize_app(cred)
@@ -44,7 +39,9 @@ def main():
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("🏋️ 欢迎使用健身助手！可用命令：\n"
                                     "/training_plan - 获取训练计划\n"
-                                    "/recipe - 获取营养食谱")
+                                    "/recipe - 获取营养食谱\n"
+                                    "其他健身相关的问题请直接输入自然语言"
+                              )
 
 
 # 训练计划命令处理

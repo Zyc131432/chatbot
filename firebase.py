@@ -1,9 +1,10 @@
 import firebase_admin
+import os
 from firebase_admin import credentials, firestore
 
 # 初始化 Firebase
 def initialize_firebase():
-    cred = credentials.Certificate('/Users/ci1/Desktop/chatbot_db.json')  # 替换为你的 Firebase 服务账户密钥文件路径
+    cred = credentials.Certificate(os.getenv("FIREBASE_KEY_PATH"))
     firebase_admin.initialize_app(cred)
     return firestore.client()
 
