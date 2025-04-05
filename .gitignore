@@ -107,7 +107,7 @@ celerybeat.pid
 .env
 .env.prod
 .venv
-env/
+env/git
 venv/
 ENV/
 env.bak/
@@ -133,3 +133,14 @@ dmypy.json
 
 #firebase key
 config/chatbot-firebase.json
+将删除 .DS_Store
+将删除 .idea/$CACHE_FILE$
+将删除 .idea/.gitignore
+将删除 .idea/fitness_chatbot.iml
+将删除 .idea/inspectionProfiles/
+将删除 .idea/misc.xml
+将删除 .idea/modules.xml
+将删除 .idea/vcs.xml
+.env.prod
+.env.test
+将删除 config/chatbot-firebase1.json

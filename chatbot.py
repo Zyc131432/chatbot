@@ -1,3 +1,4 @@
+import json
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, CallbackContext)
 import os
@@ -5,17 +6,19 @@ from dotenv import load_dotenv
 import logging
 from ChatGPT import HKBU_ChatGPT
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, initialize_app
 
 def main():
     load_dotenv(dotenv_path='.env')
     telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
-    firebase_key_path = os.getenv("FIREBASE_KEY_PATH")
+    firebase_config = os.getenv("FIREBASE_CONFIG")
+    #firebase_key_path = os.getenv("FIREBASE_KEY_PATH")
 
     updater = Updater(token=telegram_token, use_context=True)
     dispatcher = updater.dispatcher
 
-    cred = credentials.Certificate(firebase_key_path)
+    cred = credentials.Certificate(json.loads(firebase_config))
+    #cred = credentials.Certificate(firebase_key_path)
     firebase_admin.initialize_app(cred)
     global db
     db = firestore.client()  # 获取 Firestore 客户端

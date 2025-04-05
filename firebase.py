@@ -1,10 +1,14 @@
 import firebase_admin
 import os
 from firebase_admin import credentials, firestore
-
+from dotenv import load_dotenv
+import json
 # 初始化 Firebase
 def initialize_firebase():
-    cred = credentials.Certificate(os.getenv("FIREBASE_KEY_PATH"))
+    load_dotenv(dotenv_path='.env')
+    firebase_config = os.getenv("FIREBASE_CONFIG")
+    #cred = credentials.Certificate(os.getenv("FIREBASE_KEY_PATH"))
+    cred = credentials.Certificate(json.loads(firebase_config))
     firebase_admin.initialize_app(cred)
     return firestore.client()
 
